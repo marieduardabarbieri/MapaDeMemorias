@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 
   subtitulo: {
     marginTop: 20,
-    fontSize: 18,
+    fontSize: 17,
     marginBottom: 60,
     textAlign: "center",
     color: "white",
