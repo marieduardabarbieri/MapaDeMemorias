@@ -47,9 +47,8 @@ const styles = StyleSheet.create({
 
   overlay: {
     flex: 1,
-    justifyContent: "space-between",
     paddingHorizontal: 30,
-    paddingTop: 120,
+    paddingTop: 80,
     paddingBottom: 80,
     backgroundColor: "rgba(0,0,0,0.18)",
   },
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
   },
   botoes_inferiores: {
     alignItems: "center",
+    paddingTop: 230,
   },
 
   botao: {
@@ -89,25 +89,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#6B8CB0",
-    width: "80%",
-    paddingRight: 10,
-    paddingVertical: 20,
+    width: "75%",
+    paddingRight: 13,
+    paddingVertical: 17,
     borderRadius: 40,
     shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 5,
   },
 
   textoBotao: {
     color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 15,
+    fontWeight: "500",
     marginLeft: 10,
   },
   textoSecundario: {
     marginTop: 20,
     color: "#FFFFFF",
-    fontSize: 18,
+    fontSize: 15,
   },
 });
