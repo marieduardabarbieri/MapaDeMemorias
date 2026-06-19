@@ -7,58 +7,66 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 export function MapaMemorias() {
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollContainer}
-      showsVerticalScrollIndicator={false}
+    <LinearGradient
+      colors={["#79A3C3", "#D6E4ED", "#F7F4EF"]}
+      style={styles.container}
     >
-      <Text style={styles.titulo}>Meu Diário de Viagem</Text>
-      <Text style={styles.subtitulo}>
-        Registre e colecione seus melhores momentos
-      </Text>
-      <View style={styles.formulario}>
-        {/* País */}
-        <Text style={styles.label}>País</Text>
-        <TextInput style={styles.input} placeholder="Ex: Itália" />
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.titulo}>Meu Diário de Viagem</Text>
+        <Text style={styles.subtitulo}>
+          Registre e colecione seus melhores momentos
+        </Text>
+        <View style={styles.formulario}>
+          {/* País */}
+          <Text style={styles.label}>País</Text>
+          <TextInput style={styles.input} placeholder="Ex: Itália" />
 
-        {/* Cidade */}
-        <Text style={styles.label}>Cidade</Text>
-        <TextInput style={styles.input} placeholder="Ex: Roma" />
+          {/* Cidade */}
+          <Text style={styles.label}>Cidade</Text>
+          <TextInput style={styles.input} placeholder="Ex: Roma" />
 
-        {/* Data */}
-        <Text style={styles.label}>Data da viagem</Text>
-        <TextInput style={styles.input} placeholder="10/06/2026" />
+          {/* Data */}
+          <Text style={styles.label}>Data da viagem</Text>
+          <TextInput style={styles.input} placeholder="10/06/2026" />
 
-        {/* Descrição */}
-        <Text style={styles.label}>Descrição</Text>
-        <TextInput
-          style={styles.inputDescricao}
-          placeholder="Conte um pouco sobre esse momento..."
-          multiline
-        />
+          {/* Descrição */}
+          <Text style={styles.label}>Descrição</Text>
+          <TextInput
+            style={styles.inputDescricao}
+            placeholder="Conte um pouco sobre esse momento..."
+            multiline
+          />
 
-        {/* Foto */}
-        <TouchableOpacity style={styles.fotoContainer}>
-          <Ionicons name="camera-outline" size={40} color="#6B8CB0" />
+          {/* Foto */}
+          <TouchableOpacity style={styles.fotoContainer}>
+            <Ionicons name="camera-outline" size={40} color="#6B8CB0" />
 
-          <Text style={styles.fotoTexto}>Adicionar foto</Text>
-        </TouchableOpacity>
+            <Text style={styles.fotoTexto}>Adicionar foto</Text>
+          </TouchableOpacity>
 
-        {/* Salvar */}
-        <TouchableOpacity style={styles.botaoSalvar}>
-          <Text style={styles.textoBotao}>Salvar Memória</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+          {/* Salvar */}
+          <TouchableOpacity style={styles.botaoSalvar}>
+            <Text style={styles.textoBotao}>Salvar Memória</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   scrollContainer: {
     padding: 15,
-    backgroundColor: "#79A3C3",
     alignItems: "center",
     paddingBottom: 50,
   },
