@@ -1,4 +1,5 @@
 # MapaDeMemorias
+
 O aplicativo "Mapa de Memórias" foi desenvolvido com o objetivo de centralizar essas recordações em um único lugar, permitindo que o usuário registre suas experiências de viagem de forma organizada e visual.
 ![Uploading image.png…]()
 
@@ -41,3 +42,12 @@ Hooks (useState e useEffect)
 | Hardware        | Câmera/Galeria                     |
 | GitHub          | Repositório público                |
 
+# Paletas de Cores
+
+Cor principal: #79A3C3 | (azul Chambray)
+
+Cor secundária: #EBCDB7 | (Bisque)
+
+Texto: #3A2119 | (Espresso)
+
+Cards: #D2E2EC |(Glacier)
