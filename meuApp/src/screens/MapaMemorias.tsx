@@ -73,6 +73,7 @@ export function MapaMemorias() {
     setData("");
     setDescricao("");
   };
+
   const removerMemoria = (id: string) => {
     const novaLista = memorias.filter((memoria) => memoria.id !== id);
     setMemorias(novaLista);
@@ -186,9 +187,7 @@ export function MapaMemorias() {
               </View>
             </View>
           )}
-          ListEmptyComponent={
-            <Text style={styles.vazio}>Nenhuma memória cadastrada.</Text>
-          }
+          ListEmptyComponent={<Text>Nenhuma memória cadastrada.</Text>}
         />
       </ScrollView>
     </LinearGradient>
