@@ -81,19 +81,20 @@ export function MapaMemorias() {
     carregarMemorias();
   }
 
-  const removerMemoria = (id: string) => {
-    const novaLista = memorias.filter((memoria) => memoria.id !== id);
-    setMemorias(novaLista);
-  };
+  async function removerMemoria(id: number) {
+    await excluirMemoria(db, id);
 
-  const editarMemoria = (memoria: Memoria) => {
+    carregarMemorias();
+  }
+
+  function editarMemoria(memoria: Memoria) {
     setPais(memoria.pais);
     setCidade(memoria.cidade);
     setData(memoria.data);
     setDescricao(memoria.descricao);
 
     setEditando(memoria.id);
-  };
+  }
 
   return (
     <LinearGradient
