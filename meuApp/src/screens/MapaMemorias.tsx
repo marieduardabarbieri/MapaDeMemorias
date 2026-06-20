@@ -33,7 +33,7 @@ export function MapaMemorias() {
     console.log("Tela abaerta");
   }, []);
 
-  const carregarDados = () => {
+  const salvarMemoria = () => {
     if (!pais || !cidade || !data || !descricao) {
       Alert.alert("Erro", "Preencha os dados corretamente");
       return;
@@ -72,21 +72,21 @@ export function MapaMemorias() {
     setCidade("");
     setData("");
     setDescricao("");
-
-    const removerMemoria = (id: string) => {
-      const novaLista = memorias.filter((memoria) => memoria.id !== id);
-      setMemorias(novaLista);
-    };
-
-    const editarMemoria = (memoria: Memoria) => {
-      setPais(memoria.pais);
-      setCidade(memoria.cidade);
-      setData(memoria.data);
-      setDescricao(memoria.descricao);
-
-      setEditando(memoria.id);
-    };
   };
+  const removerMemoria = (id: string) => {
+    const novaLista = memorias.filter((memoria) => memoria.id !== id);
+    setMemorias(novaLista);
+  };
+
+  const editarMemoria = (memoria: Memoria) => {
+    setPais(memoria.pais);
+    setCidade(memoria.cidade);
+    setData(memoria.data);
+    setDescricao(memoria.descricao);
+
+    setEditando(memoria.id);
+  };
+
   return (
     <LinearGradient
       colors={["#79A3C3", "#D6E4ED", "#F7F4EF"]}
@@ -144,7 +144,7 @@ export function MapaMemorias() {
 
           <Button
             title={editando ? "Atualizar Memória" : "Salvar Memória"}
-            onPress={carregarDados}
+            onPress={salvarMemoria}
           />
         </View>
 
@@ -203,16 +203,18 @@ const styles = StyleSheet.create({
   },
 
   subtitulo: {
-    fontSize: 14,
-    marginBottom: 30,
-    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 25,
+    marginBottom: 15,
     color: "#4D2F1F",
-    lineHeight: 32,
+    alignSelf: "flex-start",
   },
   formulario: {
     backgroundColor: "#FFFFFF",
     borderRadius: 25,
     padding: 20,
+    width: "100%",
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowRadius: 10,
@@ -294,10 +296,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#FFFFFF",
+    width: "100%",
     padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    borderRadius: 15,
+    marginBottom: 12,
+    elevation: 3,
   },
 
   local: {
