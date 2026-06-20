@@ -70,7 +70,10 @@ export function MapaMemorias() {
         descricao,
       });
 
-      Alert.alert("Sucesso", "Memória salva");
+      Alert.alert(
+        "Parabéns",
+        "Sua Memória está salva com sucesso! Aproveite a experiência com o app",
+      );
     }
 
     setPais("");
@@ -165,7 +168,7 @@ export function MapaMemorias() {
         <FlatList
           data={memorias}
           scrollEnabled={false}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
             <View style={styles.card}>
               <View style={styles.cardInfo}>
