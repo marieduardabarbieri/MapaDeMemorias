@@ -5,11 +5,88 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Alert,
+  Button,
+  FlatList,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useEffect, useState } from "react";
+
+interface Memoria {
+  id: string;
+  pais: string;
+  cidade: string;
+  data: string;
+  descricao: string;
+}
 
 export function MapaMemorias() {
+  const [pais, setPais] = useState<string>("");
+  const [cidade, setCidade] = useState<string>("");
+  const [data, setData] = useState<string>("");
+  const [descricao, setDescricao] = useState<string>("");
+  const [memorias, setMemorias] = useState<Memoria[]>([]);
+  const [editando, setEditando] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log("Tela abaerta");
+  }, []);
+
+  const carregarDados = () => {
+    if (!pais || !cidade || !data || !descricao) {
+      Alert.alert("Erro", "Preencha os dados corretamente");
+      return;
+    }
+
+    //se o usuário quiser editar seus  dados
+    if (editando) {
+      const listaAtualizada = memorias.map((memoria) => {
+        if (memoria.id === editando) {
+          return {
+            ...memoria,
+            pais,
+            cidade,
+            data,
+            descricao,
+          };
+        }
+        return memoria;
+      });
+
+      setMemorias(listaAtualizada);
+      Alert.alert("Sucesso", "Lista de memórias atualizada com sucesso");
+      setEditando(null);
+    } else {
+      const novaMemoria: Memoria = {
+        id: Date.now().toString(),
+        pais,
+        cidade,
+        data,
+        descricao,
+      };
+      setMemorias([...memorias, novaMemoria]);
+      Alert.alert("Sucesso", "Nova memória cadastrada com sucesso");
+    }
+    setPais("");
+    setCidade("");
+    setData("");
+    setDescricao("");
+
+    const removerMemoria = (id: string) => {
+      const novaLista = memorias.filter((memoria) => memoria.id !== id);
+      setMemorias(novaLista);
+    };
+
+    const editarMemoria = (memoria: Memoria) => {
+      setPais(memoria.pais);
+      setCidade(memoria.cidade);
+      setData(memoria.data);
+      setDescricao(memoria.descricao);
+
+      setEditando(memoria.id);
+    };
+  };
   return (
     <LinearGradient
       colors={["#79A3C3", "#D6E4ED", "#F7F4EF"]}
@@ -24,17 +101,29 @@ export function MapaMemorias() {
           Registre e colecione seus melhores momentos
         </Text>
         <View style={styles.formulario}>
-          {/* País */}
           <Text style={styles.label}>País</Text>
-          <TextInput style={styles.input} placeholder="Ex: Itália" />
+          <TextInput
+            style={styles.input}
+            placeholder="Ex: Itália"
+            value={pais}
+            onChangeText={setPais}
+          />
 
-          {/* Cidade */}
           <Text style={styles.label}>Cidade</Text>
-          <TextInput style={styles.input} placeholder="Ex: Roma" />
+          <TextInput
+            style={styles.input}
+            placeholder="Ex: Roma"
+            value={cidade}
+            onChangeText={setCidade}
+          />
 
-          {/* Data */}
           <Text style={styles.label}>Data da viagem</Text>
-          <TextInput style={styles.input} placeholder="10/06/2026" />
+          <TextInput
+            style={styles.input}
+            placeholder="10/06/2026"
+            value={data}
+            onChangeText={setData}
+          />
 
           {/* Descrição */}
           <Text style={styles.label}>Descrição</Text>
@@ -42,6 +131,8 @@ export function MapaMemorias() {
             style={styles.inputDescricao}
             placeholder="Conte um pouco sobre esse momento..."
             multiline
+            value={descricao}
+            onChangeText={setDescricao}
           />
 
           {/* Foto */}
@@ -51,11 +142,45 @@ export function MapaMemorias() {
             <Text style={styles.fotoTexto}>Adicionar foto</Text>
           </TouchableOpacity>
 
-          {/* Salvar */}
-          <TouchableOpacity style={styles.botaoSalvar}>
-            <Text style={styles.textoBotao}>Salvar Memória</Text>
-          </TouchableOpacity>
+          <Button
+            title={editando ? "Atualizar Memória" : "Salvar Memória"}
+            onPress={carregarDados}
+          />
         </View>
+
+        <Text style={styles.subtitulo}>
+          Minhas Memórias ({memorias.length})
+        </Text>
+
+        <FlatList
+          data={memorias}
+          scrollEnabled={false}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.local}>
+                {item.cidade}, {item.pais}
+              </Text>
+
+              <Text>{item.data}</Text>
+
+              <Text>{item.descricao}</Text>
+
+              <View style={styles.botoes}>
+                <Button title="Editar" onPress={() => editarMemoria(item)} />
+
+                <Button
+                  title="Excluir"
+                  color="red"
+                  onPress={() => removerMemoria(item.id)}
+                />
+              </View>
+            </View>
+          )}
+          ListEmptyComponent={
+            <Text style={styles.vazio}>Nenhuma memória cadastrada.</Text>
+          }
+        />
       </ScrollView>
     </LinearGradient>
   );
@@ -167,5 +292,29 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  card: {
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+
+  local: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+
+  botoes: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+
+  vazio: {
+    textAlign: "center",
+    marginTop: 20,
+    color: "gray",
   },
 });
