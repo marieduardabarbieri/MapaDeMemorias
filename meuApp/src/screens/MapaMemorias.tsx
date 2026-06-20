@@ -142,10 +142,11 @@ export function MapaMemorias() {
             <Text style={styles.fotoTexto}>Adicionar foto</Text>
           </TouchableOpacity>
 
-          <Button
-            title={editando ? "Atualizar Memória" : "Salvar Memória"}
-            onPress={salvarMemoria}
-          />
+          <TouchableOpacity style={styles.botaoSalvar} onPress={salvarMemoria}>
+            <Text style={styles.textoBotao}>
+              {editando ? "Atualizar Memória" : "Salvar Memória"}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.subtitulo}>
@@ -158,22 +159,30 @@ export function MapaMemorias() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.card}>
-              <Text style={styles.local}>
-                {item.cidade}, {item.pais}
-              </Text>
+              <View style={styles.cardInfo}>
+                <Text style={styles.local}>{item.cidade}</Text>
 
-              <Text>{item.data}</Text>
+                <Text style={styles.pais}>{item.pais}</Text>
 
-              <Text>{item.descricao}</Text>
+                <Text style={styles.dataCard}>📅 {item.data}</Text>
 
-              <View style={styles.botoes}>
-                <Button title="Editar" onPress={() => editarMemoria(item)} />
+                <Text style={styles.descricaoCard}>{item.descricao}</Text>
 
-                <Button
-                  title="Excluir"
-                  color="red"
-                  onPress={() => removerMemoria(item.id)}
-                />
+                <View style={styles.botoes}>
+                  <TouchableOpacity
+                    style={styles.botaoEditar}
+                    onPress={() => editarMemoria(item)}
+                  >
+                    <Text style={styles.textoBotaoCard}>Editar</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={styles.botaoExcluir}
+                    onPress={() => removerMemoria(item.id)}
+                  >
+                    <Text style={styles.textoBotaoCard}>Excluir</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           )}
@@ -205,14 +214,15 @@ const styles = StyleSheet.create({
   subtitulo: {
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 25,
-    marginBottom: 15,
+    marginTop: 15,
+    marginBottom: 25,
     color: "#4D2F1F",
     alignSelf: "flex-start",
   },
   formulario: {
     backgroundColor: "#FFFFFF",
     borderRadius: 25,
+    borderColor: "black",
     padding: 20,
     width: "100%",
     shadowColor: "#000",
@@ -285,7 +295,7 @@ const styles = StyleSheet.create({
   botaoSalvar: {
     marginTop: 25,
     backgroundColor: "#6B8CB0",
-    paddingVertical: 18,
+    paddingVertical: 15,
     borderRadius: 20,
     alignItems: "center",
   },
@@ -296,29 +306,67 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   card: {
-    backgroundColor: "#FFFFFF",
     width: "100%",
-    padding: 15,
-    borderRadius: 15,
-    marginBottom: 12,
-    elevation: 3,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    paddingHorizontal: 130,
+    padding: 18,
+    marginBottom: 15,
+  },
+
+  cardInfo: {
+    flex: 1,
   },
 
   local: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 5,
+    color: "#4D2F1F",
+  },
+
+  pais: {
+    fontSize: 16,
+    color: "#7A6C5D",
+    marginTop: 2,
+  },
+
+  dataCard: {
+    marginTop: 8,
+    color: "#6B8CB0",
+    fontWeight: "600",
+  },
+
+  descricaoCard: {
+    marginTop: 10,
+    fontSize: 15,
+    color: "#555",
+    lineHeight: 22,
   },
 
   botoes: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
+    marginTop: 15,
+    gap: 10,
   },
 
-  vazio: {
-    textAlign: "center",
-    marginTop: 20,
-    color: "gray",
+  botaoEditar: {
+    flex: 1,
+    backgroundColor: "#6B8CB0",
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+
+  botaoExcluir: {
+    flex: 1,
+    backgroundColor: "#C96A6A",
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+
+  textoBotaoCard: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
   },
 });
