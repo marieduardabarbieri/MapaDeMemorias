@@ -12,67 +12,74 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
+import { useSQLiteContext } from "expo-sqlite";
 
-interface Memoria {
-  id: string;
-  pais: string;
-  cidade: string;
-  data: string;
-  descricao: string;
-}
+import { Memoria } from "../../types/memoria";
+
+import {
+  listarMemorias,
+  inserirMemoria,
+  excluirMemoria,
+  atualizarMemoria,
+} from "../../repositories/memoriaRepository";
+
+//interface Memoria não existe mais porque agora ela fica em types/memoria
 
 export function MapaMemorias() {
-  const [pais, setPais] = useState<string>("");
-  const [cidade, setCidade] = useState<string>("");
-  const [data, setData] = useState<string>("");
-  const [descricao, setDescricao] = useState<string>("");
+  const db = useSQLiteContext();
+
+  const [pais, setPais] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [data, setData] = useState("");
+  const [descricao, setDescricao] = useState("");
+
   const [memorias, setMemorias] = useState<Memoria[]>([]);
-  const [editando, setEditando] = useState<string | null>(null);
+  const [editando, setEditando] = useState<number | null>(null); //aqui é o tipo number porque o SQLite gera: id INTEGER PRIMARY KEY AUTOINCREMENT
 
   useEffect(() => {
-    console.log("Tela abaerta");
+    carregarMemorias();
   }, []);
 
-  const salvarMemoria = () => {
+  async function carregarMemorias() {
+    const resultado = await listarMemorias(db);
+    setMemorias(resultado);
+  }
+
+  async function salvarMemoria() {
     if (!pais || !cidade || !data || !descricao) {
-      Alert.alert("Erro", "Preencha os dados corretamente");
+      Alert.alert("Erro", "Preencha todos os campos");
       return;
     }
 
-    //se o usuário quiser editar seus  dados
     if (editando) {
-      const listaAtualizada = memorias.map((memoria) => {
-        if (memoria.id === editando) {
-          return {
-            ...memoria,
-            pais,
-            cidade,
-            data,
-            descricao,
-          };
-        }
-        return memoria;
-      });
-
-      setMemorias(listaAtualizada);
-      Alert.alert("Sucesso", "Lista de memórias atualizada com sucesso");
-      setEditando(null);
-    } else {
-      const novaMemoria: Memoria = {
-        id: Date.now().toString(),
+      await atualizarMemoria(db, {
+        id: editando,
         pais,
         cidade,
         data,
         descricao,
-      };
-      setMemorias([...memorias, novaMemoria]);
-      Alert.alert("Sucesso", "Nova memória cadastrada com sucesso");
+      });
+
+      Alert.alert("Sucesso", "Memória atualizada");
+      setEditando(null);
+    } else {
+      await inserirMemoria(db, {
+        pais,
+        cidade,
+        data,
+        descricao,
+      });
+
+      Alert.alert("Sucesso", "Memória salva");
     }
+
     setPais("");
     setCidade("");
     setData("");
     setDescricao("");
-  };
+
+    carregarMemorias();
+  }
 
   const removerMemoria = (id: string) => {
     const novaLista = memorias.filter((memoria) => memoria.id !== id);
