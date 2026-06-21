@@ -202,6 +202,13 @@ export function MapaMemorias() {
           renderItem={({ item }) => (
             <View style={styles.card}>
               <View style={styles.cardInfo}>
+                {item.foto ? (
+                  <Image
+                    source={{ uri: item.foto }}
+                    style={styles.imagemCard}
+                  />
+                ) : null}
+
                 <Text style={styles.local}>{item.cidade}</Text>
 
                 <Text style={styles.pais}>{item.pais}</Text>
@@ -413,5 +420,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 18,
+  },
+  imagemCard: {
+    width: "100%",
+    height: 180,
+    borderRadius: 15,
+    marginBottom: 12,
   },
 });
