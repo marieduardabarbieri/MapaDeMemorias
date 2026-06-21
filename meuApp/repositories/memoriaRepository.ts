@@ -19,8 +19,8 @@ export async function inserirMemoria(
 ): Promise<void> {
   await db.runAsync(
     `INSERT INTO memorias
-     (pais,cidade,data,descricao)
-     VALUES (?,?,?,?, ?)`,
+     (pais,cidade,data,descricao, foto)
+     VALUES (?,?,?,?,?)`,
     [
       memoria.pais,
       memoria.cidade,
@@ -58,8 +58,8 @@ export async function atualizarMemoria(
       memoria.cidade,
       memoria.data,
       memoria.descricao,
-      memoria.id,
       memoria.foto,
+      memoria.id,
     ],
   );
 }
