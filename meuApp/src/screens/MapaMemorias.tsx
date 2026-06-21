@@ -248,7 +248,6 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     padding: 15,
-    alignItems: "center",
     paddingBottom: 50,
   },
   titulo: {
@@ -356,13 +355,18 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#FFFFFF",
     borderRadius: 20,
-    paddingHorizontal: 100,
-    padding: 18,
+    padding: 14,
+
     marginBottom: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    elevation: 3,
   },
 
   cardInfo: {
     flex: 1,
+    width: "100%",
   },
 
   local: {
@@ -423,7 +427,7 @@ const styles = StyleSheet.create({
   },
   imagemCard: {
     width: "100%",
-    height: 180,
+    height: 150,
     borderRadius: 15,
     marginBottom: 12,
   },
