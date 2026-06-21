@@ -62,6 +62,7 @@ export function MapaMemorias() {
         cidade,
         data,
         descricao,
+        foto,
       });
 
       Alert.alert("Sucesso", "Memória atualizada");
@@ -72,6 +73,7 @@ export function MapaMemorias() {
         cidade,
         data,
         descricao,
+        foto,
       });
 
       Alert.alert(
@@ -84,6 +86,7 @@ export function MapaMemorias() {
     setCidade("");
     setData("");
     setDescricao("");
+    setFoto("");
 
     carregarMemorias();
   }
@@ -99,6 +102,7 @@ export function MapaMemorias() {
     setCidade(memoria.cidade);
     setData(memoria.data);
     setDescricao(memoria.descricao);
+    setFoto(memoria.foto);
 
     setEditando(memoria.id);
   }
