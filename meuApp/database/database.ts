@@ -7,7 +7,8 @@ export async function inicializarBanco(db: SQLiteDatabase) {
       pais TEXT NOT NULL,
       cidade TEXT NOT NULL,
       data TEXT NOT NULL,
-      descricao TEXT NOT NULL
+      descricao TEXT NOT NULL,
+      foto TEXT
     );
   `);
 }

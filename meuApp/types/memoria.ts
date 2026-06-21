@@ -4,6 +4,7 @@ export type Memoria = {
   cidade: string;
   data: string;
   descricao: string;
+  foto: string;
 };
 
 export type NovaMemoria = {
@@ -11,4 +12,5 @@ export type NovaMemoria = {
   cidade: string;
   data: string;
   descricao: string;
+  foto: string;
 };

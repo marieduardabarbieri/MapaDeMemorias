@@ -20,8 +20,14 @@ export async function inserirMemoria(
   await db.runAsync(
     `INSERT INTO memorias
      (pais,cidade,data,descricao)
-     VALUES (?,?,?,?)`,
-    [memoria.pais, memoria.cidade, memoria.data, memoria.descricao],
+     VALUES (?,?,?,?, ?)`,
+    [
+      memoria.pais,
+      memoria.cidade,
+      memoria.data,
+      memoria.descricao,
+      memoria.foto,
+    ],
   );
 }
 
@@ -43,9 +49,17 @@ export async function atualizarMemoria(
       pais = ?,
       cidade = ?,
       data = ?,
-      descricao = ?
+      descricao = ?,
+      foto = ?
     WHERE id = ?
     `,
-    [memoria.pais, memoria.cidade, memoria.data, memoria.descricao, memoria.id],
+    [
+      memoria.pais,
+      memoria.cidade,
+      memoria.data,
+      memoria.descricao,
+      memoria.id,
+      memoria.foto,
+    ],
   );
 }
