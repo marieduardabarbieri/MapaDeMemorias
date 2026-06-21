@@ -103,6 +103,24 @@ export function MapaMemorias() {
     setEditando(memoria.id);
   }
 
+  const tirarFoto = async () => {
+    const permissao = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (!permissao.granted) {
+      Alert.alert("Permissão negada", "É necessário permitir acesso à câmera.");
+      return;
+    }
+
+    const resultado = await ImagePicker.launchCameraAsync({
+      mediaTypes: ["images"],
+      quality: 0.7,
+    });
+
+    if (!resultado.canceled) {
+      setFoto(resultado.assets[0].uri);
+    }
+  };
+
   return (
     <LinearGradient
       colors={["#79A3C3", "#D6E4ED", "#F7F4EF"]}
@@ -151,11 +169,15 @@ export function MapaMemorias() {
             onChangeText={setDescricao}
           />
 
-          {/* Foto */}
-          <TouchableOpacity style={styles.fotoContainer}>
-            <Ionicons name="camera-outline" size={40} color="#6B8CB0" />
-
-            <Text style={styles.fotoTexto}>Adicionar foto</Text>
+          <TouchableOpacity style={styles.fotoContainer} onPress={tirarFoto}>
+            {foto ? (
+              <Image source={{ uri: foto }} style={styles.previewFoto} />
+            ) : (
+              <>
+                <Ionicons name="camera-outline" size={40} color="#6B8CB0" />
+                <Text style={styles.fotoTexto}>Adicionar foto</Text>
+              </>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.botaoSalvar} onPress={salvarMemoria}>
@@ -382,5 +404,10 @@ const styles = StyleSheet.create({
   textoBotaoCard: {
     color: "#FFFFFF",
     fontWeight: "bold",
+  },
+  previewFoto: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 18,
   },
 });
