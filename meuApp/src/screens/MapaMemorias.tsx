@@ -16,6 +16,9 @@ import { useSQLiteContext } from "expo-sqlite";
 
 import { Memoria } from "../../types/memoria";
 
+import * as ImagePicker from "expo-image-picker";
+import { Image } from "react-native";
+
 import {
   listarMemorias,
   inserirMemoria,
@@ -32,6 +35,7 @@ export function MapaMemorias() {
   const [cidade, setCidade] = useState("");
   const [data, setData] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [foto, setFoto] = useState<string>("");
 
   const [memorias, setMemorias] = useState<Memoria[]>([]);
   const [editando, setEditando] = useState<number | null>(null); //aqui é o tipo number porque o SQLite gera: id INTEGER PRIMARY KEY AUTOINCREMENT
